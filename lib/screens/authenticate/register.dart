@@ -1,16 +1,16 @@
-import 'package:brew_crew/services/auth.dart';
-import 'package:brew_crew/shared/constants.dart';
-import 'package:brew_crew/shared/loading.dart';
-import 'package:flutter/material.dart';
+import "package:brew_crew/services/auth.dart";
+import "package:brew_crew/shared/constants.dart";
+import "package:brew_crew/shared/loading.dart";
+import "package:flutter/material.dart";
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({required this.toggleView});
+  Register({required this.toggleView});
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -28,19 +28,20 @@ class _SignInState extends State<SignIn> {
             appBar: AppBar(
               backgroundColor: Colors.brown[400],
               elevation: 5.0,
-              title: Text('Sign-in to Brew Crew'),
+              title: Text('Register to Brew Crew'),
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
                       widget.toggleView();
                     },
                     child: Row(
-                      children: [Icon(Icons.person), Text("Register")],
+                      children: [Icon(Icons.login), Text("Sign in")],
                     ))
               ],
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -94,11 +95,10 @@ class _SignInState extends State<SignIn> {
                             loading = true;
                           });
                           dynamic result = await _auth
-                              .signInWithEmailAndPassword(email, _password);
+                              .registerWithEmailAndPassword(email, _password);
                           if (result == null) {
                             setState(() {
-                              error =
-                                  'could not sign in with those credentials';
+                              error = 'please supply a valid email';
                               loading = false;
                             });
                           } else {
@@ -106,7 +106,7 @@ class _SignInState extends State<SignIn> {
                           }
                         }
                       },
-                      child: const Text("Sign in"),
+                      child: const Text("Register"),
                       // ignore: prefer_const_constructors
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink[400],
@@ -114,7 +114,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 12.0,
+                      height: 20.0,
                     ),
                     Text(error,
                         style: TextStyle(
