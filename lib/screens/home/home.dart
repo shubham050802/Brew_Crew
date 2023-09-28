@@ -1,3 +1,4 @@
+import 'package:brew_crew/screens/home/brew_list.dart';
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/services/database.dart';
@@ -31,6 +32,7 @@ class Home extends StatelessWidget {
                 ))
           ],
         ),
+        body: BrewList(),
       ),
     );
   }
